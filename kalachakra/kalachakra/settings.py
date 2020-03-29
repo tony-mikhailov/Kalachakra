@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'kalachakra.apps.KalachakraConfig',
+    'greentara.apps.GreentaraConfig',
+    'jambhala.apps.JambhalaConfig',
+    'saraswati.apps.SaraswatiConfig',
+    
 ]
 
 MIDDLEWARE = [

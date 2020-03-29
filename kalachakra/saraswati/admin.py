@@ -30,3 +30,7 @@ class EventAdmin(ImportExportModelAdmin):
 admin.site.register(Ritual, RitualAdmin)
 admin.site.register(MoonDay, MoonDayAdmin)
 admin.site.register(Event, EventAdmin)
+
+# admin.site.register(Ritual)
+# admin.site.register(MoonDay)
+

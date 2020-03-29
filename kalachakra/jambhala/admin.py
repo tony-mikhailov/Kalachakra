@@ -1,3 +1,16 @@
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
-# Register your models here.
+from .models import Transaction
+
+
+class TransactionResource(resources.ModelResource):
+    class Meta:
+        model = Transaction
+
+class TransactionAdmin(ImportExportModelAdmin):
+    resource_class = TransactionResource
+
+
+admin.site.register(Transaction, TransactionAdmin)

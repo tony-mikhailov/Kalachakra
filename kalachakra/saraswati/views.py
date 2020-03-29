@@ -9,13 +9,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from django.views.decorators.csrf import csrf_exempt
 
-import mooncal.cal_helpers
+import saraswati.cal_helpers
 
 from .models import MoonDay, Ritual, Event
 from .forms import RitualForm
 from .qol import *
 from django.urls import reverse
-from mooncal.qol import date_conv
+from saraswati.qol import date_conv
 from django.utils.datetime_safe import strftime
 from datetime import datetime
 

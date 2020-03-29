@@ -10,4 +10,7 @@ class RitualForm(forms.Form):
         self.fields['ritual'].choices = [(x.pk, x.short_name) for x in Ritual.objects.filter(is_hural=True)]
         # self.fields['ritual'].choices = [('1', '111111')]
         # slef.fields['id_for_label']
+        
+        
+        
     

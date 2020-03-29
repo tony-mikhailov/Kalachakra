@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from greentara.qol import *
 
 
+
 class Ritual(models.Model):
     short_name = models.CharField(max_length=35)
     long_name = models.TextField(max_length=108)

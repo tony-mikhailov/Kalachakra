@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'greentara.apps.GreentaraConfig',
     'jambhala.apps.JambhalaConfig',
     'saraswati.apps.SaraswatiConfig',
+    'djangobower',
+    'colorfield',
+
     
 ]
 
@@ -146,6 +149,7 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
 ]
 
 LOGIN_REDIRECT_URL = '/'
@@ -154,4 +158,12 @@ SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 # Find templates in the same folder as settings.py.
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
+)
+
+BOWER_COMPONENTS_ROOT = 'static'
+
+BOWER_INSTALLED_APPS = (
+    'jquery#2',
+    'underscore',
+    'farbtastic'
 )

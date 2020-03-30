@@ -1,0 +1,45 @@
+
+
+<h1> {{ today.date }} </h1>
+
+<h2> {{ today.moon_day_no }} лунный день </h2>
+
+
+
+{% comment %} {% for value, text in day_form.ritual.field.choices %}
+    {{ value }}: {{ text }}
+{% endfor %} {% endcomment %}
+{{ morning_form }}
+{{ day_form }}
+
+{% comment %} <ul>
+{% for choice in day_form.ritual.field.choices %}
+  <li>
+    <input type="radio" name="ritual" value="{{choice.0}}"
+      {% ifequal RitualForm.ritual.data choice.0 %} 
+         checked="checked"
+      {% endifequal %}/>
+    <label for="">{{choice.1}}</label>
+ </li>
+{% endfor %}
+</ul> {% endcomment %}
+
+<p>
+
+
+{{ today.morning_hural }}
+</p>
+
+
+
+
+<p>
+{{ today.day_hural }}
+</p>
+
+<div> 
+    <span><a href=" {% url 'day' today.ys_year today.ys_month today.ys_day %} "> &lt; </a></span>
+    <span><a href="{% url 'day' today.tm_year today.tm_month today.tm_day %}"> &gt;</a></span>
+</div>
+
+<small> {{ today }} </small>

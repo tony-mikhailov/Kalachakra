@@ -1,0 +1,15 @@
+.events_title{
+    font-size: 32px;
+}
+.events_header{
+    font-size: 24px;
+}
+
+@media  (max-width: 576px){
+    .events_title{
+        font-size: 24px;
+    }
+    .events_header{
+        font-size: 20px;
+    }
+}

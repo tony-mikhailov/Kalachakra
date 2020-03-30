@@ -52,8 +52,8 @@ class MoonDay(models.Model):
     day_no = models.IntegerField()
     moon_day_no = models.IntegerField()
     
-    morning_hural = models.ForeignKey(Ritual, related_name='morning2ritual', on_delete=models.CASCADE, null=True, blank=True)
-    day_hural = models.ForeignKey(Ritual,related_name='day2ritual', on_delete=models.CASCADE, null=True, blank=True)
+    hural_1 = models.ForeignKey(Ritual, related_name='morning2ritual', on_delete=models.CASCADE, null=True, blank=True)
+    hural_2 = models.ForeignKey(Ritual,related_name='day2ritual', on_delete=models.CASCADE, null=True, blank=True)
         
     baldjinima = models.BooleanField(default=False)
     dashinima = models.BooleanField(default=False)

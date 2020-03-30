@@ -1,18 +1,16 @@
+<h2> Лунный каленарь на </h2>
 
-
-<h1> {{ today.month_fullname }}, {{ today.year }} </h1>
-
-<h2> H2 </h2>
-
+<h2> {{ today.month_fullname }}, {{ today.year }} </h2>
 
 <table>
-
 {% for day in days %}
 <tr>
-    <a href="{{ day.url }}" > {{ day.date_str }}</a>
+    {% comment %} <a href="{{ day.url }}" > {{ day.date_str }}</a> {% endcomment %}
 
-    {{ day.morning_hural }}
-    {{ day.day_hural }}
+    <td>10:00 – </td> <td>{{ day.hural_1 }} </td>
+</tr>
+<tr> 
+    <td>15:00 – </td> <td>{{ day.hural_2 }} </TD>
     {% comment %} {{ d.day.day }}
     {{ d.day.morning_hural }}
     {{ d.day.day_hural }} {% endcomment %}
@@ -20,6 +18,5 @@
 
 </tr>
 {% endfor %}
-
 </table>
 

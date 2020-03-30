@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.translation import ugettext_lazy as _
 
 import saraswati.cal_helpers
 
@@ -168,7 +169,7 @@ def month_json(request, year, month):
 
 def hurals_json(request):
     hs = Ritual.hurals()
-    rarr = [{'id': None, "short_name": "–",}]
+    rarr = [{'id': None, "short_name": _("Нет хурала"),}]
     for h in hs:
         rarr.append(h.json())
     
@@ -177,7 +178,7 @@ def hurals_json(request):
 
 def rituals_json(request):
     hs = Ritual.objects.all()
-    rarr = [{'id': None, "short_name": "–"}]
+    rarr = [{'id': None, "short_name": _("Нет хурала")}]
     for h in hs:
         rarr.append(h.json())
     

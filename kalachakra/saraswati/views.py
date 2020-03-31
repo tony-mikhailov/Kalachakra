@@ -139,19 +139,17 @@ def day_events_json(request, year, month, day):
 def month(request, year, month):
     days_and_forms = []
     qs = MoonDay.month_days(year, month)
-    
-    # d = {}
-    # for day in qs:
         
-    #     d = {
-    #         'day' : day, 
-    #         # 'morning_form' : RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk} ),
-    #         # 'day_form' : RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} ),
-    #     }
-    #     days_and_forms.append(d)
-    
     ctx = {'today': qs[0], 'days': qs }
     return render(request, 'month.html', context=ctx)
+
+
+def common_month(request, year, month):
+    days_and_forms = []
+    qs = MoonDay.month_days(year, month)
+        
+    ctx = {'today': qs[0], 'days': qs }
+    return render(request, 'classic_month.html', context=ctx)
 
 @csrf_exempt
 def month_json(request, year, month):

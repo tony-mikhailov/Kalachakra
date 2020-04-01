@@ -18,7 +18,10 @@ table.fixed td { overflow: hidden; }
     <col width="50px" />
     <col width="330px" />
     <tr> 
-     <td style="vertical-align: top; text-align: left;" rowspan="2" width="50px" bgcolor="#FBF0DB"> {{ day.day }}</td>
+     <td style="vertical-align: top; text-align: left;" rowspan="2" width="50px" bgcolor="#FBF0DB"> 
+     {{ day.day }} <br />
+     {{ day.weekday_short }}
+     </td>
      <td> 10:00 – {{ day.morning_hural }}</td>
     </tr>
     <tr > 

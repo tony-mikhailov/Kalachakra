@@ -1,23 +1,25 @@
-from builtins import object
-
 import calendar
 import json
+from builtins import object
+from datetime import datetime
 
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
+from django.urls import reverse
+from django.utils.datetime_safe import strftime
 from django.views.decorators.csrf import csrf_exempt
+from yaml import serialize
 
 import saraswati.cal_helpers
-
-from .models import MoonDay, Ritual, Event
-from .forms import RitualForm
-from .qol import *
-from django.urls import reverse
+from saraswati.serializers import MoonDaySerializer
 from saraswati.qol import date_conv
-from django.utils.datetime_safe import strftime
-from datetime import datetime
+
+from .forms import RitualForm
+from .models import Event, MoonDay, Ritual
+from .qol import *
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
@@ -122,8 +124,6 @@ def delete_event(request, year, month, day):
     # return HttpResponse(data, content_type='application/json; charset=utf-8')
         
 
-
-
 @csrf_exempt
 def day_events_json(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
@@ -143,12 +143,16 @@ def month(request, year, month):
     ctx = {'today': qs[0], 'days': qs }
     return render(request, 'month.html', context=ctx)
 
+def ValuesQuerySetToDict(vqs):
+    return [item for item in vqs]
+
 
 def common_month(request, year, month):
-    days_and_forms = []
     qs = MoonDay.month_days(year, month)
-        
-    ctx = {'today': qs[0], 'days': qs }
+    days=[]
+    for d in qs:
+        days.append(d.json())        
+    ctx = {'today': MoonDay.today(), 'days': days}
     return render(request, 'classic_month.html', context=ctx)
 
 @csrf_exempt
@@ -166,7 +170,7 @@ def month_json(request, year, month):
 
 def hurals_json(request):
     hs = Ritual.hurals()
-    rarr = [{'id': None, "short_name": "–",}]
+    rarr = [{'id': None, "short_name": "нет хурала",}]
     for h in hs:
         rarr.append(h.json())
     
@@ -175,7 +179,7 @@ def hurals_json(request):
 
 def rituals_json(request):
     hs = Ritual.objects.all()
-    rarr = [{'id': None, "short_name": "–"}]
+    rarr = [{'id': None, "short_name": "нет хурула"}]
     for h in hs:
         rarr.append(h.json())
     

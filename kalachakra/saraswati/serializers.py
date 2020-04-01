@@ -32,6 +32,7 @@ class MoonDaySerializer(serializers.ModelSerializer):
     weekday_short = serializers.SerializerMethodField('get_weekday_from_moonday_short')
     weekday_long = serializers.SerializerMethodField('get_weekday_from_moonday_long')
     date = serializers.SerializerMethodField('get_date_from_moonday')
+    year = serializers.SerializerMethodField('get_year_from_moonday')
     month = serializers.SerializerMethodField('get_month_from_moonday')
     day = serializers.SerializerMethodField('get_day_from_moonday')
 
@@ -60,6 +61,10 @@ class MoonDaySerializer(serializers.ModelSerializer):
 
     def get_month_from_moonday(self, moonday):
         return moonday.month()
+
+    def get_year_from_moonday(self, moonday):
+        return moonday.year
+
 
     def get_day_from_moonday(self, moonday):
         return moonday.day()

@@ -5,7 +5,6 @@
 <h2> {{ today.month_fullname }} </h2>
 </center>
 
-{% load extras %}
 
 <style>
 table.fixed { table-layout:fixed; }
@@ -19,7 +18,7 @@ table.fixed td { overflow: hidden; }
     <col width="50px" />
     <col width="330px" />
     <tr> 
-     <td style="vertical-align: top; text-align: left;" rowspan="2" width="50px" bgcolor="#FBF0DB"> {{ day.day }} {{ day.weekday_short }}</td>
+     <td style="vertical-align: top; text-align: left;" rowspan="2" width="50px" bgcolor="#FBF0DB"> {{ day.day }} {{ day.weekday }}</td>
      <td> 10:00 – {{ day.morning_hural }}</td>
     </tr>
     <tr > 

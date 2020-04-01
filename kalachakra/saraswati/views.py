@@ -4,7 +4,7 @@ from builtins import object
 from datetime import datetime
 
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from django.urls import reverse
@@ -22,7 +22,16 @@ from .qol import *
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the index.")
+    if request.user.is_authenticated:
+        # return render(
+        #     request,
+        #     'index.html',
+        #     context = stats_context(request),
+        # )
+        return HttpResponseRedirect('common/2020/03')
+
+    else :
+        return HttpResponseRedirect('/accounts/login')
 
 
 def today(request):

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/assets/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/css/bootstrap.min.css">
+    <!--https://bootstrap-datepicker.readthedocs.io/en/latest/index.html-->
+    <link rel="stylesheet" href="/static/vendor/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+
+    <script src="/static/vendor/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/vendor/js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"></script>
+    <title>{% trans 'Вход' %}</title>
+</head>
+
+<body>
+
+<section class="login">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="logo-header login__logo">
+                    <img class="logo-header__pic" src="/static/assets/img/logo.svg" alt="">
+                </div>
+                <form class="text-center needs-validation login__form"
+                      id="loginForm"
+                      method="post"
+                      action="{% url 'login' %}"
+                      novalidate>
+
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control text-center login__input {% if form.username.errors %}is-invalid{% endif %}"
+                               id="id_username"
+                               autofocus
+                               name="username"
+                               placeholder="Имя" autocomplete="username"
+                               type="text" value="{% if form.username.data %}{{form.username.data}}{% endif %}"
+                               required>
+                        <div class="invalid-feedback">
+                            {% for field in form.username.errors %}
+                                <p>{{field}}</p>
+                            {% endfor %}
+                            {% comment %} {% trans 'Пожалуйста введите имя' %} {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control text-center login__input {% if form.password.errors %}is-invalid{% endif %}"
+                               id="id_password"
+                               name="password"
+                               placeholder="{% trans 'Пароль' %}" autocomplete="current-password"
+                               required
+                               type="password" value="{% if form.password.data %}{{form.password.data}}{% endif %}">
+                        <div class="invalid-feedback">
+                            {% for field in form.password.errors %}
+                                <p>{{field}}</p>
+                            {% endfor %}
+                            {% comment %} {% trans 'Пожалуйста введите пароль' %} {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="form-group custom-checkbox">
+                        <input class="custom-control-input login__checkbox"
+                               id="rememberLogin"
+                               name="rememberLogin" {% if form.rememberLogin.data %}checked{% endif %}
+                               type="checkbox">
+                        <label class="custom-control-label" for="rememberLogin">{% trans 'Запомнить меня' %}</label>
+                    </div>
+                    {% if form.non_field_errors %}
+                    <div class="text-danger mb-2">
+                        {% for field in form.non_field_errors %}
+                            <p>{{field}}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% comment %} <input type="hidden" name="next" value="{{ next }}" /> {% endcomment %}
+                    <input type="hidden" name="next" value="/" />
+                    <button class="btn btn-primary" id="submitLogin" type="submit" value="login" >{% trans 'Войти' %}</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+
+
+</html>

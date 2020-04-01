@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 
-from saraswati.models import MoonDay, Ritual, Event
+from .models import MoonDay, Ritual, Event
 from .qol import noneOrPk
 
 
@@ -41,7 +41,7 @@ class MoonDaySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = MoonDay
-        fields = ['year','month','day','day_no','moon_day_no','morning_hural_id','day_hural_id','url','weekday','date','month','baldjinima','dashinima','tersuud','modon_hohimoy','riha','pagshag','good_for_haircut','good_for_travel','significant_day','comment','article_link','lamas_checked','events', 'weekday_short', 'weekday_long']
+        fields = ['morning_hural', 'day_hural', 'year','month','day','day_no','moon_day_no','morning_hural_id','day_hural_id','url','weekday','date','month','baldjinima','dashinima','tersuud','modon_hohimoy','riha','pagshag','good_for_haircut','good_for_travel','significant_day','comment','article_link','lamas_checked','events', 'weekday_short', 'weekday_long']
         
     def get_url_from_moonday(self, moonday):
         return moonday.url()
@@ -50,10 +50,10 @@ class MoonDaySerializer(serializers.ModelSerializer):
         return moonday.weekday() + 1
 
     def get_weekday_from_moonday_short(self, moonday):
-        return ['пн','вт','ср','чт','пт','сб','вс'].at(moonday.weekday())        
+        return ['пн','вт','ср','чт','пт','сб','вс'][moonday.weekday()]        
 
     def get_weekday_from_moonday_long(self, moonday):
-        return ['понедедльник','вторник','среда','четверг','пятница','суббота','воскресение'].at(moonday.weekday())        
+        return ['понедедльник','вторник','среда','четверг','пятница','суббота','воскресение'][moonday.weekday()]
 
     def get_date_from_moonday(self, moonday):
         return moonday.date_str()

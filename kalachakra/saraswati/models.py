@@ -6,9 +6,22 @@ import calendar
 from django.db import models
 from django.db.models.sql import where
 from django.utils.translation import ugettext_lazy as _
-from greentara.qol import *
+from .qol import *
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+
+class MonthMeta(models.Model):
+    title = models.CharField(max_length=35)
+    no = models.IntegerField(
+        default=1,
+        validators=[MaxValueValidator(12), MinValueValidator(1)]
+    )
+    description = models.TextField(max_length=1080)
+    
+
+    
 class Ritual(models.Model):
     short_name = models.CharField(max_length=35)
     long_name = models.TextField(max_length=108)

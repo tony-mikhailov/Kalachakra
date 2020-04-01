@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+
+<h1>Hello from template</h1>
+
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}"></a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

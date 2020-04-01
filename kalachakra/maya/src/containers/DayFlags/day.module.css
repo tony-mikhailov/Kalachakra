@@ -1,0 +1,29 @@
+.day_attr{
+    cursor: pointer;
+    font-size: 32px;
+    color: #5f0519;
+}
+
+.day_attr img{
+    width: 30px;
+}
+
+.day_param_off{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray; /* IE 6-9 */
+    opacity: 0.5;
+}
+
+.day_param_blocked{
+    opacity: .2;
+}
+
+@media  (max-width: 576px){
+    .day_attr{
+        font-size: 24px;
+    }
+}

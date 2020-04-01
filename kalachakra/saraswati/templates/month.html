@@ -1,22 +1,31 @@
 <h2> Лунный каленарь на </h2>
 
-<h2> {{ today.month_fullname }}, {{ today.year }} </h2>
+<center>
+<h1> {{ today.year }} </h1>
 
-<table>
+<h2> {{ today.month_fullname }} </h2>
+</center>
+
+
+<style>
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }
+
+</style>
+
 {% for day in days %}
-<tr>
-    {% comment %} <a href="{{ day.url }}" > {{ day.date_str }}</a> {% endcomment %}
 
-    <td>10:00 – </td> <td>{{ day.hural_1 }} </td>
-</tr>
-<tr> 
-    <td>15:00 – </td> <td>{{ day.hural_2 }} </TD>
-    {% comment %} {{ d.day.day }}
-    {{ d.day.morning_hural }}
-    {{ d.day.day_hural }} {% endcomment %}
+ <table width="200" border="0" align="center" cellpadding="4" cellspacing="0" class="fixed">
+    <col width="50px" />
+    <col width="330px" />
+    <tr> 
+     <td style="vertical-align: top; text-align: left;" rowspan="2" width="50px" bgcolor="#FBF0DB"> {{ day.day }} {{ day.weekday }}</td>
+     <td> 10:00 – {{ day.morning_hural }}</td>
+    </tr>
+    <tr > 
+     <td style="padding-bottom: 15px" width = "300px">  15:00 – {{ day.day_hural }}</td>
+    </tr>
 
 
-</tr>
 {% endfor %}
 </table>
-

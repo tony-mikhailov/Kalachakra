@@ -1,0 +1,33 @@
+
+<center>
+<h1> Расписание хуралов на {{ today.month_fullname }} месяц {{ today.year }} г. </h1>
+
+<h2> {{ today.month_fullname }} </h2>
+</center>
+
+
+<style>
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }
+
+</style>
+
+{% for day in days %}
+
+ <table width="200" border="0" align="center" cellpadding="0" cellspacing="0" class="fixed">
+    <col width="100px" />
+    <col width="330px" />
+    <tr> 
+     <td style="vertical-align: top; text-align: left;" rowspan="2" width="50px" bgcolor="#FBF0DB"> 
+     {{ day.day }} <br />
+     {{ day.weekday_short }}&nbsp; <small>{{ day.moon_day_no }}</small>
+     </td>
+     <td> 10:00 – {{ day.morning_hural_str }}</td>
+    </tr>
+    <tr > 
+     <td style="padding-bottom: 15px" width = "300px">  15:00 – {{ day.day_hural_str }}</td>
+    </tr>
+
+
+{% endfor %}
+</table>

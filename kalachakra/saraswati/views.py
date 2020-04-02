@@ -37,10 +37,10 @@ def index(request):
 def today(request):
     day =  MoonDay.today()
     
-    morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk, 'title' : 'Yarr'} )
-    day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} )
+    # morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk, 'title' : 'Yarr'} )
+    # day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} )
     
-    ctx = { 'today': day, 'morning_form' : morning_form, 'day_form' : day_form }
+    ctx = { 'today': day}
     
     return render(request, 'today.html', context=ctx)
 
@@ -59,6 +59,8 @@ def day(request, year, month, day):
     ctx = { 'today': day, 'morning_form' : morning_form, 'day_form' : day_form }
     return render(request, 'today.html', context=ctx)
 
+
+@ensure_csrf_cookie
 def process_event_json(event, day):
     print ("new event has come %s" % (event))
     ritual_id = None if (event['ritual_id'] == '') or (not event['ritual_id']) else int(event['ritual_id'])
@@ -89,8 +91,9 @@ def process_event_json(event, day):
         )
 
     nevent.save()
-     
     
+    
+@ensure_csrf_cookie
 def day_json(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
@@ -118,7 +121,7 @@ def day_json(request, year, month, day):
     
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
-
+@ensure_csrf_cookie
 def delete_event(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':

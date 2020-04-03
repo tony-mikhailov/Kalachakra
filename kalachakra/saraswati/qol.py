@@ -2,6 +2,17 @@
 
 from datetime import *
 
+def weekday_to_short(day_inx):
+    return ['пн','вт','ср','чт','пт','сб','вс'][day_inx]        
+
+def month_to_short(inx):
+    return ['ян','фв','мр','ап','мй','ию','ию','ав','ст','но','дк'][inx]        
+
+def month_to_long(inx):
+    return ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','ноябрь','декабрь'][inx - 1]        
+
+def weekday_to_long(inx):
+    return ['понедельник','вторник','среда','четверг','пятница','суббота','воскресение'][inx - 1]
 
 def noneOrPk(inp):
     return inp.pk if inp else None

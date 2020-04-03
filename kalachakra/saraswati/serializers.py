@@ -3,7 +3,7 @@
 from rest_framework import serializers
 
 from .models import MoonDay, Ritual, Event
-from .qol import noneOrPk
+from .qol import noneOrPk, weekday_to_long, weekday_to_short
 
 
 class RitualSerializer(serializers.ModelSerializer):
@@ -55,11 +55,11 @@ class MoonDaySerializer(serializers.ModelSerializer):
         return moonday.weekday() + 1
 
     def get_weekday_from_moonday_short(self, moonday):
-        return ['пн','вт','ср','чт','пт','сб','вс'][moonday.weekday()]        
-
+        return weekday_to_short(moonday.weekday())
+    
     def get_weekday_from_moonday_long(self, moonday):
-        return ['понедедльник','вторник','среда','четверг','пятница','суббота','воскресение'][moonday.weekday()]
-
+        return weekday_to_long(moonday.weekday())
+    
     def get_date_from_moonday(self, moonday):
         return moonday.date_str()
 

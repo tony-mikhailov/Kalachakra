@@ -9,8 +9,6 @@
 {% comment %} {% for value, text in day_form.ritual.field.choices %}
     {{ value }}: {{ text }}
 {% endfor %} {% endcomment %}
-{{ morning_form }}
-{{ day_form }}
 
 {% comment %} <ul>
 {% for choice in day_form.ritual.field.choices %}
@@ -25,13 +23,8 @@
 </ul> {% endcomment %}
 
 <p>
-
-
 {{ today.morning_hural }}
 </p>
-
-
-
 
 <p>
 {{ today.day_hural }}

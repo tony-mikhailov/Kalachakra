@@ -3,7 +3,7 @@
 from rest_framework import serializers
 
 from .models import MoonDay, Ritual, Event
-from .qol import noneOrPk
+from .qol import noneOrPk, weekday_to_long, weekday_to_short
 
 
 class RitualSerializer(serializers.ModelSerializer):
@@ -41,12 +41,15 @@ class MoonDaySerializer(serializers.ModelSerializer):
 
     morning_hural_str = serializers.SerializerMethodField('get_morning_hural1_from_moonday')
     day_hural_str = serializers.SerializerMethodField('get_day_hural1_from_moonday')
+
+    morning_hural_descr = serializers.SerializerMethodField('get_morning_hural_descr_from_moonday')
+    day_hural_descr = serializers.SerializerMethodField('get_day_hural_decsr_from_moonday')
     
     events = serializers.SerializerMethodField('get_events_from_moonday')
     
     class Meta:
         model = MoonDay
-        fields = ['morning_hural_str', 'day_hural_str', 'morning_hural', 'day_hural', 'year','month','day','day_no','moon_day_no','morning_hural_id','day_hural_id','url','weekday','date','month','baldjinima','dashinima','tersuud','modon_hohimoy','riha','pagshag','good_for_haircut','good_for_travel','significant_day','comment','article_link','lamas_checked','events', 'weekday_short', 'weekday_long']
+        fields = ['morning_hural_descr','day_hural_descr','morning_hural_str', 'day_hural_str', 'morning_hural', 'day_hural', 'year','month','day','day_no','moon_day_no','morning_hural_id','day_hural_id','url','weekday','date','month','baldjinima','dashinima','tersuud','modon_hohimoy','riha','pagshag','good_for_haircut','good_for_travel','significant_day','comment','article_link','lamas_checked','events', 'weekday_short', 'weekday_long']
         
     def get_url_from_moonday(self, moonday):
         return moonday.url()
@@ -55,11 +58,11 @@ class MoonDaySerializer(serializers.ModelSerializer):
         return moonday.weekday() + 1
 
     def get_weekday_from_moonday_short(self, moonday):
-        return ['пн','вт','ср','чт','пт','сб','вс'][moonday.weekday()]        
-
+        return weekday_to_short(moonday.weekday())
+    
     def get_weekday_from_moonday_long(self, moonday):
-        return ['понедедльник','вторник','среда','четверг','пятница','суббота','воскресение'][moonday.weekday()]
-
+        return weekday_to_long(moonday.weekday())
+    
     def get_date_from_moonday(self, moonday):
         return moonday.date_str()
 
@@ -85,6 +88,13 @@ class MoonDaySerializer(serializers.ModelSerializer):
 
     def get_day_hural1_from_moonday(self, moonday):
         return str(moonday.day_hural)
+
+    def get_morning_hural_descr_from_moonday(self, moonday):
+        return str(moonday.morning_hural.description)
+
+    def get_day_hural_decsr_from_moonday(self, moonday):
+        return str(moonday.day_hural.description)
+
 
 
     def get_events_from_moonday(self, moonday):

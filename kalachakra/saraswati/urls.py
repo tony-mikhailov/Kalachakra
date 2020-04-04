@@ -7,7 +7,7 @@ urlpatterns = [
     path('today', views.today, name='today'),
     path('<int:year>/<int:month>/<int:day>', views.day, name='day'),
     # path('<int:year>/<int:month>/', views.month, name='month'),
-    path('preview/<int:year>/<int:month>/', views.common_month, name='common_month'),
+    path('<int:year>/<int:month>/', views.common_month, name='common_month'),
 
     path('api/today', views.today_json, name='today_json'),
     

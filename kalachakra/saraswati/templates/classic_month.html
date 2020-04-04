@@ -8,19 +8,18 @@
 
 <div id="month_h2">{{ month }}</div>
 
-<table width="100%" border="0" aligrn="left" cellpadding="0" cellspacing="0" >
+<table width="100%" border="0" aligrn="left" cellpadding="2" cellspacing="0" >
 {% for day in days %}
 
     <tr> 
      <td > 
      {{ day.day }} –
      {{ day.weekday_long }}&nbsp; {% if day.moon_day_no in f %} <br /> <small> {{ day.moon_day_no }} – лунный день  </small> {% endif %} <br />
+    </td>
 
-     </td>
-     <td height='300%'> 10:00 – {{ day.morning_hural_str }}<br />
-     <td style="padding-bottom: 15px" width = "300px">  15:00 – {{ day.day_hural_str }}</td> 
 
-     <td> {{ day.morning_hural_descr }}</td>
+     <tr> <td style="padding-bottom: 15px" width = "300px"> 10:00 – {{ day.morning_hural_str }}</td> &nbsp; <td>{{ day.morning_hural_descr }}</td> </tr>
+     <tr> <td style="padding-bottom: 15px" width = "300px">  15:00 – {{ day.day_hural_str }}</td> &nbsp; <td>{{ day.day_hural_descr }}</td> </tr>
     
 
     </tr>

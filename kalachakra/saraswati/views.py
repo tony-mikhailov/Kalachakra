@@ -22,7 +22,11 @@ from .qol import *
 
 def index(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect('/today')
+        return render(
+            request,
+            'index.html',
+            context = {},
+        )
     else:
         return HttpResponseRedirect('/accounts/login')
 

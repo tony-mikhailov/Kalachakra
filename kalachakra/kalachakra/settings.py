@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'import_export',
     'django_filters',
-    # 'kalachakra.apps.KalachakraConfig',
     'greentara.apps.GreentaraConfig',
     'jambhala.apps.JambhalaConfig',
     'saraswati.apps.SaraswatiConfig',

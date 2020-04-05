@@ -4,10 +4,11 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('edit', views.edit, name='edit'),
     path('today', views.today, name='today'),
     path('<int:year>/<int:month>/<int:day>', views.day, name='day'),
-    # path('<int:year>/<int:month>/', views.month, name='month'),
     path('<int:year>/<int:month>/', views.common_month, name='common_month'),
+    path('<int:year>/<int:month>/spec', views.common_month, name='common_month_spec'),
 
     path('api/today', views.today_json, name='today_json'),
     

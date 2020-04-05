@@ -1,7 +1,7 @@
 import calendar
 import json
 from builtins import object
-from datetime import datetime
+import datetime
 
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,11 +10,10 @@ from django.template.defaultfilters import first
 from django.urls import reverse
 from django.utils.datetime_safe import strftime
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.translation import ugettext_lazy as _
+from yaml import serialize
+from django.utils.translation import get_language, activate
+from django.template.defaultfilters import date
 
-import saraswati.cal_helpers
-from saraswati.serializers import MoonDaySerializer
-from saraswati.qol import date_conv
 
 from .forms import RitualForm
 from .models import Event, MoonDay, Ritual
@@ -23,13 +22,21 @@ from .qol import *
 
 def index(request):
     if request.user.is_authenticated:
-
         return render(
             request,
             'index.html',
             context = {},
         )
+    else:
+        return HttpResponseRedirect('/2020/4')
 
+def edit(request):
+    if request.user.is_authenticated:
+        return render(
+            request,
+            'index.html',
+            context = {},
+        )
     else :
         return HttpResponseRedirect('/accounts/login')
 
@@ -53,10 +60,8 @@ def day(request, year, month, day):
     
     day = MoonDay.year_day(year,month,day)
     
-    morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk } ) if day.morning_hural else None
-    day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} ) if day.day_hural else None
     
-    ctx = { 'today': day, 'morning_form' : morning_form, 'day_form' : day_form }
+    ctx = { 'today': day}
     return render(request, 'today.html', context=ctx)
 
 def process_event_json(event, day):
@@ -159,8 +164,21 @@ def common_month(request, year, month):
     qs = MoonDay.month_days(year, month)
     days=[]
     for d in qs:
-        days.append(d.json())        
-    ctx = {'today': MoonDay.today(), 'days': days}
+        days.append(d.json())  
+              
+    ctx = {
+        'today': MoonDay.today(), 
+        'days': days,
+        'days_qs': qs, 
+        'year': year, 
+        'month': month_to_long(month),
+        'moonday': MoonDay.moon_day_no,
+        'f': [1,8,15,30],
+        # 'ms': {1: '&#x1F311;', 8: '&#x1f313;', 15: '&#x1F315;',30 : '&#x1F311'},
+        # 'ms2': ['&#x1F311;', '&#x1f313;', '&#x1F315;','&#x1F311']
+        	
+
+    }
     return render(request, 'classic_month.html', context=ctx)
 
 @csrf_exempt
@@ -199,3 +217,4 @@ def ritual_json(request, id):
     r =  get_object_or_404(Ritual, pk=id)
     data = json.dumps(r.json(), indent=2, ensure_ascii=False)
     return HttpResponse(data, content_type='application/json; charset=utf-8')
+

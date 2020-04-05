@@ -25,6 +25,7 @@ class MonthMeta(models.Model):
 class Ritual(models.Model):
     short_name = models.CharField(max_length=35)
     long_name = models.TextField(max_length=108)
+    people_name = models.TextField(max_length=108, null=True, blank=True, default=None)
     is_hural = models.BooleanField(default=True)
     celebration_hural = models.BooleanField(default=False)
     for_best_reincarnation = models.BooleanField(default=False)

@@ -196,7 +196,7 @@ def month_json(request, year, month):
 
 def hurals_json(request):
     hs = Ritual.hurals()
-    rarr = [{'id': None, "short_name": _("Нет хурала"),}]
+    rarr = [{'id': None, "short_name": "Нет хурала"}]
     for h in hs:
         rarr.append(h.json())
     

@@ -28,7 +28,7 @@ def index(request):
             context = {},
         )
     else:
-        return HttpResponseRedirect('/2020/20')
+        return HttpResponseRedirect('/2020/4')
 
 def edit(request):
     if request.user.is_authenticated:

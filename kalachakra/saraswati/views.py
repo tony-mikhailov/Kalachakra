@@ -28,7 +28,7 @@ def index(request):
             context = {},
         )
     else:
-        return HttpResponseRedirect('/accounts/login')
+        return HttpResponseRedirect('/')
 
 def edit(request):
     if request.user.is_authenticated:

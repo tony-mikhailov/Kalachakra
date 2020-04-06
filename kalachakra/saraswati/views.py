@@ -32,17 +32,12 @@ def index(request):
 
 def edit(request):
     if request.user.is_authenticated:
-        return render(
-            request,
-            'index.html',
-            context = {},
-        )
-    else :
+        return HttpResponseRedirect('/2020/5')
+    else:
         return HttpResponseRedirect('/accounts/login')
 
-
 def today(request):
-    day =  MoonDay.today()
+    day = MoonDay.today()
     
     morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk, 'title' : 'Yarr'} )
     day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} )

@@ -22,13 +22,21 @@ from .qol import *
 
 def index(request):
     if request.user.is_authenticated:
-
         return render(
             request,
             'index.html',
             context = {},
         )
+    else:
+        return HttpResponseRedirect('/2020/4')
 
+def edit(request):
+    if request.user.is_authenticated:
+        return render(
+            request,
+            'index.html',
+            context = {},
+        )
     else :
         return HttpResponseRedirect('/accounts/login')
 
@@ -36,10 +44,10 @@ def index(request):
 def today(request):
     day =  MoonDay.today()
     
-    # morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk, 'title' : 'Yarr'} )
-    # day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} )
+    morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk, 'title' : 'Yarr'} )
+    day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} )
     
-    ctx = { 'today': day}
+    ctx = { 'today': day, 'morning_form' : morning_form, 'day_form' : day_form }
     
     return render(request, 'today.html', context=ctx)
 
@@ -55,7 +63,6 @@ def day(request, year, month, day):
     
     ctx = { 'today': day}
     return render(request, 'today.html', context=ctx)
-
 
 def process_event_json(event, day):
     print ("new event has come %s" % (event))
@@ -87,8 +94,9 @@ def process_event_json(event, day):
         )
 
     nevent.save()
+     
     
-    
+@csrf_exempt
 def day_json(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
@@ -116,6 +124,8 @@ def day_json(request, year, month, day):
     
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
+
+@csrf_exempt
 def delete_event(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
@@ -128,9 +138,9 @@ def delete_event(request, year, month, day):
     # return HttpResponse(data, content_type='application/json; charset=utf-8')
         
 
+@csrf_exempt
 def day_events_json(request, year, month, day):
-    yday = MoonDay.year_day(year,month,day)
-      
+    yday = MoonDay.year_day(year,month)
     arr=[]
     for e in yday.events.all():
         arr.append(e.json())  
@@ -171,6 +181,7 @@ def common_month(request, year, month):
     }
     return render(request, 'classic_month.html', context=ctx)
 
+@csrf_exempt
 def month_json(request, year, month):
     ds = MoonDay.month_days(year, month)
     if request.method == 'POST':
@@ -185,7 +196,7 @@ def month_json(request, year, month):
 
 def hurals_json(request):
     hs = Ritual.hurals()
-    rarr = [{'id': None, "short_name": "нет хурала",}]
+    rarr = [{'id': None, "short_name": _("Нет хурала"),}]
     for h in hs:
         rarr.append(h.json())
     

@@ -1,8 +1,0 @@
-cd saraswati/
-source venv/bin/activate 
-pip install -r requirements.txt
-./manage.py runserver
-
-new terminal
-cd saraswati/frontend/
-npm run dev

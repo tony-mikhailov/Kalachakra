@@ -11,6 +11,7 @@ class RitualSerializer(serializers.ModelSerializer):
         model = Ritual
         fields = "__all__"
 
+
 class EventSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField('get_id_from_event')
     ritual_id = serializers.SerializerMethodField('get_ritual_id_from_event')

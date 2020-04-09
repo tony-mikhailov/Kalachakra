@@ -132,14 +132,16 @@ LANGUAGES = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = '/Users/tony/Kalachakra/kalachakra'
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'static'
+
+#STATICFILES_DIRS = ( os.path.join('static'), )
 
 STATICFILES_DIRS = [
-   ('assets', 'static/html/dist/assets'),
-   ('vendor', 'static/html/dist/vendor'),
-   ('img', 'static/img'),
+    ('assets', 'static/html/dist/assets'),
+    ('vendor', 'static/html/dist/vendor'),
+    ('img', 'static/img'),
 ]
 
 STATICFILES_FINDERS = [

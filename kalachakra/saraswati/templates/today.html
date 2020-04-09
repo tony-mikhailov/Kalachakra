@@ -8,13 +8,10 @@
 {{ today.morning_hural }}
 </p>
 
-<p>
-{{ today.day_hural }}
-</p>
 
 <div> 
-    <span><a href=" {% url 'day' today.ys_year today.ys_month today.ys_day %} "> &lt; </a></span>
-    <span><a href="{% url 'day' today.tm_year today.tm_month today.tm_day %}"> &gt;</a></span>
+    <span><a href=" {% url 'saraswati:day' today.ys_year today.ys_month today.ys_day %} "> &lt; </a></span>
+    <span><a href="{% url 'saraswati:day' today.tm_year today.tm_month today.tm_day %}"> &gt;</a></span>
 </div>
 
 <small> {{ today }} </small>

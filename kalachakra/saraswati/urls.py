@@ -1,11 +1,14 @@
 from django.urls import path
+from rest_framework.urls import app_name
 
 from . import views
 
+app_name='saraswati'
 urlpatterns = [
     path('', views.index, name='index'),
     path('edit', views.edit, name='edit'),
     path('today', views.today, name='today'),
+    path('month', views.month, name='month'),
     path('<int:year>/<int:month>/<int:day>', views.day, name='day'),
     path('<int:year>/<int:month>/', views.common_month, name='common_month'),
     path('<int:year>/<int:month>/spec', views.common_month, name='common_month_spec'),

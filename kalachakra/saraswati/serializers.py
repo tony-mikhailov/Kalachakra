@@ -50,7 +50,7 @@ class MoonDaySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = MoonDay
-        fields = ['morning_hural_descr','day_hural_descr','morning_hural_str', 'day_hural_str', 'morning_hural', 'day_hural', 'year','month','day','day_no','moon_day_no','morning_hural_id','day_hural_id','url','weekday','date','month','baldjinima','dashinima','tersuud','modon_hohimoy','riha','pagshag','good_for_haircut','good_for_travel','significant_day','comment','article_link','lamas_checked','events', 'weekday_short', 'weekday_long']
+        fields = ['day', 'morning_hural_descr','day_hural_descr','morning_hural_str', 'day_hural_str', 'morning_hural', 'day_hural', 'year','month','day','day_no','moon_day_no','morning_hural_id','day_hural_id','url','weekday','date','month','baldjinima','dashinima','tersuud','modon_hohimoy','riha','pagshag','good_for_haircut','good_for_travel','significant_day','comment','article_link','lamas_checked','events', 'weekday_short', 'weekday_long']
         
     def get_url_from_moonday(self, moonday):
         return moonday.url()

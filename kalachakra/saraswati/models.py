@@ -190,7 +190,7 @@ class MoonDay(models.Model):
     
     def url(self):
         from django.urls import reverse
-        return reverse('day', args=[str(self.year), self.month(), self.day() ])
+        return reverse('saraswati:day', args=[str(self.year), self.month(), self.tm_day() ])
     
     def json(self):
         return serialize_moonday(self)

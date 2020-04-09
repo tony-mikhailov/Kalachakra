@@ -21,14 +21,7 @@ from .qol import *
 
 
 def index(request):
-    if request.user.is_authenticated:
-        return render(
-            request,
-            'index.html',
-            context = {},
-        )
-    else:
-        return HttpResponseRedirect('/2020/4')
+        return HttpResponseRedirect('/2020/5')
 
 def edit(request):
     if request.user.is_authenticated:
@@ -39,12 +32,18 @@ def edit(request):
 def today(request):
     day = MoonDay.today()
     
-    morning_form = RitualForm(auto_id=True, initial = {'ritual' : day.morning_hural.pk, 'title' : 'Yarr'} )
-    day_form = RitualForm(auto_id=True, initial = {'ritual' : day.day_hural.pk} )
     
-    ctx = { 'today': day, 'morning_form' : morning_form, 'day_form' : day_form }
+    ctx = { 'today': day, }
     
     return render(request, 'today.html', context=ctx)
+
+def month(request):
+    day = MoonDay.today()
+    
+    
+    ctx = { 'today': day, }
+    
+    return render(request, 'month.html', context=ctx)
 
 def today_json(request):
     # data = serializers.serialize("json", [MoonDay.today()], indent=2, ensure_ascii=False)
@@ -113,7 +112,7 @@ def day_json(request, year, month, day):
             print ("%s:%s" % (k, v))
             setattr(yday, k, v)
         yday.save()
-        return redirect(reverse('day_json', args=(year, month, day)))
+        return redirect(reverse('day_json', app_name='saraswati', args=(year, month, day)))
     
     data = json.dumps(yday.json(), indent=2, ensure_ascii=False)
     
@@ -128,7 +127,7 @@ def delete_event(request, year, month, day):
         e = Event.objects.get(pk=j['id'])
         if e: e.delete()
 
-    return redirect(reverse('day_json', args=(year, month, day)))
+    return redirect(reverse('saraswati:day_json', args=(year, month, day)))
     # data = json.dumps(yday.json(), indent=2, ensure_ascii=False)
     # return HttpResponse(data, content_type='application/json; charset=utf-8')
         
@@ -145,9 +144,7 @@ def day_events_json(request, year, month, day):
 
 
 def month(request, year, month):
-    days_and_forms = []
     qs = MoonDay.month_days(year, month)
-        
     ctx = {'today': qs[0], 'days': qs }
     return render(request, 'month.html', context=ctx)
 
@@ -181,7 +178,7 @@ def month_json(request, year, month):
     ds = MoonDay.month_days(year, month)
     if request.method == 'POST':
         print ('process input month')
-        return redirect(reverse('month_json', args=(year, month)))
+        return redirect(reverse('sarasawati:month_json', args=(year, month)))
     
     rarr = []
     for d in ds:
@@ -191,7 +188,7 @@ def month_json(request, year, month):
 
 def hurals_json(request):
     hs = Ritual.hurals()
-    rarr = [{'id': None, "short_name": _("Нет хурала"),}]
+    rarr = [{'id': None, "short_name": ("Нет хурала"),}]
     for h in hs:
         rarr.append(h.json())
     

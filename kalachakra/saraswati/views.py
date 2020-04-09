@@ -21,7 +21,11 @@ from .qol import *
 
 
 def index(request):
-        return HttpResponseRedirect('/index.html')
+    day = MoonDay.today()
+    y=  day.year
+    m= day.month()
+    d= day.day()
+    return common_month(request, y, m)
 
 def edit(request):
     if request.user.is_authenticated:
@@ -31,18 +35,12 @@ def edit(request):
 
 def today(request):
     day = MoonDay.today()
-    
-    
     ctx = { 'today': day, }
-    
     return render(request, 'today.html', context=ctx)
 
 def month(request):
     day = MoonDay.today()
-    
-    
     ctx = { 'today': day, }
-    
     return render(request, 'month.html', context=ctx)
 
 def today_json(request):

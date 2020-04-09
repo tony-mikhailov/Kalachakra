@@ -21,11 +21,11 @@ from .qol import *
 
 
 def index(request):
-        return HttpResponseRedirect('/2020/5')
+        return HttpResponseRedirect('/index.html')
 
 def edit(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect('/2020/5')
+        return HttpResponseRedirect('/index.html')
     else:
         return HttpResponseRedirect('/accounts/login')
 
@@ -112,7 +112,7 @@ def day_json(request, year, month, day):
             print ("%s:%s" % (k, v))
             setattr(yday, k, v)
         yday.save()
-        return redirect(reverse('day_json', app_name='saraswati', args=(year, month, day)))
+        return redirect(reverse('saraswati:day_json', args=(year, month, day)))
     
     data = json.dumps(yday.json(), indent=2, ensure_ascii=False)
     

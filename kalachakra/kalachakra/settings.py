@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'greentara.apps.GreentaraConfig',
     'jambhala.apps.JambhalaConfig',
     'saraswati.apps.SaraswatiConfig',
+    'django.contrib.postgres'
     
 ]
 
@@ -90,7 +91,7 @@ WSGI_APPLICATION = 'kalachakra.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'vrweb',
         'USER': 'vrweb_django',
         'PASSWORD': 'vrweb_django_pass',

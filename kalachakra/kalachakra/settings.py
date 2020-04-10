@@ -27,7 +27,7 @@ SECRET_KEY = '9oi-@blyqxyi4=q0_q80nth)964jql3sa9i2sqkvk!(_5p)ir+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kalachakra.mikhailov.center']
+ALLOWED_HOSTS = ['kalachakra.mikhailov.center' ,'localhost']
 
 
 # Application definition
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'kalachakra.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,8 +132,10 @@ LANGUAGES = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = '/Users/tony/Kalachakra/kalachakra'
+
+
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 
 #STATICFILES_DIRS = ( os.path.join('static'), )
@@ -141,7 +143,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     ('assets', 'static/html/dist/assets'),
     ('vendor', 'static/html/dist/vendor'),
-    ('img', 'static/img'),
+    ('public', 'static/public'),
 ]
 
 STATICFILES_FINDERS = [
@@ -151,8 +153,3 @@ STATICFILES_FINDERS = [
 
 LOGIN_REDIRECT_URL = '/'
 
-SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
-# Find templates in the same folder as settings.py.
-TEMPLATE_DIRS = (
-    os.path.join(SETTINGS_PATH, 'templates'),
-)

@@ -29,7 +29,9 @@ def index(request):
 
 def edit(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect('/index.html')
+        day = MoonDay.today()
+        ctx = { 'today': day, }
+        return HttpResponse(render(request, 'index.html', context=ctx), content_type='html; charset=utf-8')
     else:
         return HttpResponseRedirect('/accounts/login')
 

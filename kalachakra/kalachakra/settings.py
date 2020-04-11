@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'greentara.apps.GreentaraConfig',
     'jambhala.apps.JambhalaConfig',
     'saraswati.apps.SaraswatiConfig',
-    'django.contrib.postgres'
     
 ]
 

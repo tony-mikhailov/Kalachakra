@@ -27,7 +27,7 @@ SECRET_KEY = '9oi-@blyqxyi4=q0_q80nth)964jql3sa9i2sqkvk!(_5p)ir+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kalachakra.mikhailov.center' ,'localhost']
+ALLOWED_HOSTS = ['kalachakra.mikhailov.center' ,'localhost', '127.0.0.1']
 
 
 # Application definition

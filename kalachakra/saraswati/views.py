@@ -27,13 +27,13 @@ def index(request):
     d= day.day()
     return common_month(request, y, m)
 
-def edit(request):
-    if request.user.is_authenticated:
-        day = MoonDay.today()
-        ctx = { 'today': day, }
-        return HttpResponse(render(request, 'index.html', context=ctx), content_type='html; charset=utf-8')
-    else:
-        return HttpResponseRedirect('/accounts/login')
+# def edit(request):
+#     if request.user.is_authenticated:
+#         day = MoonDay.today()
+#         ctx = { 'today': day, }
+#         return HttpResponse(render(request, 'index.html', context=ctx), content_type='html; charset=utf-8')
+#     else:
+#         return HttpResponseRedirect('/accounts/login')
 
 def today(request):
     day = MoonDay.today()

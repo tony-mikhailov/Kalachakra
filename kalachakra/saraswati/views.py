@@ -92,7 +92,6 @@ def process_event_json(event, day):
     nevent.save()
      
     
-@csrf_exempt
 def day_json(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
@@ -121,7 +120,6 @@ def day_json(request, year, month, day):
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
 
-@csrf_exempt
 def delete_event(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
@@ -134,7 +132,6 @@ def delete_event(request, year, month, day):
     # return HttpResponse(data, content_type='application/json; charset=utf-8')
         
 
-@csrf_exempt
 def day_events_json(request, year, month, day):
     yday = MoonDay.year_day(year,month)
     arr=[]
@@ -175,7 +172,6 @@ def common_month(request, year, month):
     }
     return render(request, 'classic_month.html', context=ctx)
 
-@csrf_exempt
 def month_json(request, year, month):
     ds = MoonDay.month_days(year, month)
     if request.method == 'POST':

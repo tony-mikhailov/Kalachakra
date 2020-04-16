@@ -25,7 +25,7 @@ SECRET_KEY = '53!x++f)z=4*_k3@^l=dd@fju#v_nk=7x=(r2kk)%gh-rq0kzh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cfg.mikhailov.center', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['cfg.mikhailov.center', '127.0.0.1', 'localhost', ]
 
 
 # Application definition

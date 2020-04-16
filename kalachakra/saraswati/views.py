@@ -20,20 +20,20 @@ from .models import Event, MoonDay, Ritual
 from .qol import *
 
 
-def index(request):
-    day = MoonDay.today()
-    y=  day.year
-    m= day.month()
-    d= day.day()
-    return common_month(request, y, m)
+# def index(request):
+#     day = MoonDay.today()
+#     y=  day.year
+#     m= day.month()
+#     d= day.day()
+#     return common_month(request, y, m)
 
-# def edit(request):
-#     if request.user.is_authenticated:
-#         day = MoonDay.today()
-#         ctx = { 'today': day, }
-#         return HttpResponse(render(request, 'index.html', context=ctx), content_type='html; charset=utf-8')
-#     else:
-#         return HttpResponseRedirect('/accounts/login')
+def index(request):
+    if request.user.is_authenticated:
+        day = MoonDay.today()
+        ctx = { 'today': day, }
+        return HttpResponse(render(request, 'index.html', context=ctx), content_type='html; charset=utf-8')
+    else:
+        return HttpResponseRedirect('/accounts/login')
 
 def today(request):
     day = MoonDay.today()

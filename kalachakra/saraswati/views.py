@@ -28,7 +28,7 @@ def index(request):
     return common_month(request, y, m)
 
 def edit(request):
-    print ("try to edit)
+    print ("try to edit")
     if request.user.is_authenticated:
         day = MoonDay.today()
         ctx = { 'today': day, }

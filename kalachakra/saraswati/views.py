@@ -4,7 +4,7 @@ from builtins import object
 import datetime
 
 from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from django.urls import reverse
@@ -14,6 +14,7 @@ from yaml import serialize
 from django.utils.translation import get_language, activate
 from django.template.defaultfilters import date
 from django.contrib.auth import authenticate
+from django.contrib import auth
 
 from .forms import RitualForm
 from .models import Event, MoonDay, Ritual

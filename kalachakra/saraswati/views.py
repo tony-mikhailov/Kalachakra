@@ -4,7 +4,7 @@ from builtins import object
 import datetime
 
 from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from django.urls import reverse
@@ -208,3 +208,27 @@ def ritual_json(request, id):
     data = json.dumps(r.json(), indent=2, ensure_ascii=False)
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
+
+class ApiUser(object):
+    def __init__(self, j):
+        self.__dict__ = json.loads(j)
+
+    def __str__(self):
+        return super().__str__()
+
+@csrf_exempt
+def login(request : HttpRequest):
+
+    req_user = ApiUser(request.body)
+    print (f'{req_user.username} {req_user.passwd}')
+
+    user = authenticate(username=req_user.username, password=req_user.passwd)
+
+    if user is None:
+        # A backend authenticated the credentials
+        return HttpResponseForbidden()
+    else:
+        auth.login(request, user)
+        data = serializers.serialize("json", [user], indent=2, ensure_ascii=False)
+        return HttpResponse(data, content_type="application/json", status=200)
+        # auth.login(request, CustomUser.objects.get(username=req_user.username))

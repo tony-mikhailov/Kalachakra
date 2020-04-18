@@ -23,5 +23,7 @@ urlpatterns = [
     path('api/<int:year>/<int:month>', views.month_json, name='month_json'),
     path('api/hurals', views.hurals_json, name='hurals_json'),
     path('api/rituals', views.rituals_json, name='rituals_json'),
-    path('api/ritual/<int:id>', views.ritual_json, name='ritual_json')
+    path('api/ritual/<int:id>', views.ritual_json, name='ritual_json'),
+    path('api/login', views.login),
+
 ]

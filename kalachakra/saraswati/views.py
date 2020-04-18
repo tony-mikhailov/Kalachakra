@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from yaml import serialize
 from django.utils.translation import get_language, activate
 from django.template.defaultfilters import date
-
+from django.contrib.auth import authenticate
 
 from .forms import RitualForm
 from .models import Event, MoonDay, Ritual
@@ -220,9 +220,9 @@ class ApiUser(object):
 def login(request : HttpRequest):
 
     req_user = ApiUser(request.body)
-    print (f'{req_user.username} {req_user.passwd}')
+    print (f'{req_user.login} {req_user.password}')
 
-    user = authenticate(username=req_user.username, password=req_user.passwd)
+    user = authenticate(username=req_user.login, password=req_user.password)
 
     if user is None:
         # A backend authenticated the credentials

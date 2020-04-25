@@ -26,6 +26,25 @@ class EventSerializer(serializers.ModelSerializer):
     def get_id_from_event(self, event):
         return event.pk
 
+# def decorators(*args, **kwargs): 
+#     def inner(func): 
+#         ''' 
+#            do operations with func 
+#         '''
+#         return func 
+#     return inner #this is the fun_obj mentioned in the above content 
+  
+def pass_thru(func_to_decorate):
+    def new_func(*original_args, **original_kwargs):
+        print ("Function has been decorated.  Congratulations.")
+        for arg in original_args:
+           print ("> ", arg)
+        # for arg in original_args:
+        #        print ("> ", arg)
+            
+        # Do whatever else you want here
+        return func_to_decorate(*original_args, **original_kwargs)
+    return new_func
 
 class MoonDaySerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField('get_url_from_moonday')
@@ -94,17 +113,18 @@ class MoonDaySerializer(serializers.ModelSerializer):
     def get_day_hural1_from_moonday(self, moonday):
         return str(moonday.day_hural)
 
+
     def get_morning_hural_descr_from_moonday(self, moonday):
-        return str(moonday.morning_hural.description)
+        return str(moonday.morning_hural.description) if moonday.morning_hural  else ""
 
     def get_day_hural_decsr_from_moonday(self, moonday):
-        return str(moonday.day_hural.description)
+        return str(moonday.day_hural.description) if moonday.day_hural  else ""
 
     def get_morning_hural_people_from_moonday(self, moonday):
-        return str(moonday.morning_hural.people_name)
+        return str(moonday.morning_hural.people_name)if moonday.morning_hural  else ""
 
     def get_day_hural_people_from_moonday(self, moonday):
-        return str(moonday.day_hural.people_name)
+        return str(moonday.day_hural.people_name) if moonday.day_hural else "" 
 
 
     def get_events_from_moonday(self, moonday):

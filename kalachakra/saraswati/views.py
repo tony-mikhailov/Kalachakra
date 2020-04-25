@@ -104,7 +104,6 @@ def day_json(request, year, month, day):
         k=next(iter(json_data))
         v=json_data[k]
         
-        
         if k == 'morning_hural_id':
             yday.morning_hural = get_or_none(Ritual, pk=v)
         elif k == 'day_hural_id':
@@ -114,12 +113,6 @@ def day_json(request, year, month, day):
             setattr(yday, 'moon_day_no_p', v-1)
         elif k == 'events':
             process_event_json(v, yday)
-            # yday.moon_day_no = v
-            # setattr(yday, 'moon_day_no_p', v-1)
-        # elif k  == 'csrftoken':
-        #     print('csrftoken %s' % (k))
-        # elif k  == 'sessionid':
-        #     print('sessionid %s' % (k))
         else:
             print ("%s:%s" % (k, v))
             setattr(yday, k, v)

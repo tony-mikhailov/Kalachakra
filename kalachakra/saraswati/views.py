@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import first
 from django.urls import reverse
 from django.utils.datetime_safe import strftime
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from yaml import serialize
 from django.utils.translation import get_language, activate
 from django.template.defaultfilters import date
@@ -91,14 +91,20 @@ def process_event_json(event, day):
         )
 
     nevent.save()
-     
     
+@csrf_exempt
 def day_json(request, year, month, day):
+    if not request.user.is_authenticated: return HttpResponseForbidden()
+
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        del json_data['sessionid']
+        del json_data['csrftoken']
         k=next(iter(json_data))
         v=json_data[k]
+        
+        
         if k == 'morning_hural_id':
             yday.morning_hural = get_or_none(Ritual, pk=v)
         elif k == 'day_hural_id':
@@ -110,6 +116,10 @@ def day_json(request, year, month, day):
             process_event_json(v, yday)
             # yday.moon_day_no = v
             # setattr(yday, 'moon_day_no_p', v-1)
+        # elif k  == 'csrftoken':
+        #     print('csrftoken %s' % (k))
+        # elif k  == 'sessionid':
+        #     print('sessionid %s' % (k))
         else:
             print ("%s:%s" % (k, v))
             setattr(yday, k, v)
@@ -120,7 +130,7 @@ def day_json(request, year, month, day):
     
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
-
+@csrf_exempt
 def delete_event(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
@@ -132,7 +142,7 @@ def delete_event(request, year, month, day):
     # data = json.dumps(yday.json(), indent=2, ensure_ascii=False)
     # return HttpResponse(data, content_type='application/json; charset=utf-8')
         
-
+@csrf_exempt
 def day_events_json(request, year, month, day):
     yday = MoonDay.year_day(year,month)
     arr=[]
@@ -173,6 +183,7 @@ def common_month(request, year, month):
     }
     return render(request, 'classic_month.html', context=ctx)
 
+# @csrf_exempt
 def month_json(request, year, month):
     ds = MoonDay.month_days(year, month)
     if request.method == 'POST':
@@ -185,6 +196,8 @@ def month_json(request, year, month):
     data = json.dumps(rarr, indent=2, ensure_ascii=False)
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
+
+@csrf_exempt
 def hurals_json(request):
     hs = Ritual.hurals()
     rarr = [{'id': None, "short_name": "Нет хурала"}]
@@ -194,6 +207,7 @@ def hurals_json(request):
     data = json.dumps(rarr, indent=2, ensure_ascii=False)
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
+@csrf_exempt
 def rituals_json(request):
     hs = Ritual.objects.all()
     rarr = [{'id': None, "short_name": "нет хурула"}]
@@ -204,6 +218,7 @@ def rituals_json(request):
     return HttpResponse(data, content_type='application/json; charset=utf-8')
 
 
+@csrf_exempt
 def ritual_json(request, id):
     r =  get_object_or_404(Ritual, pk=id)
     data = json.dumps(r.json(), indent=2, ensure_ascii=False)

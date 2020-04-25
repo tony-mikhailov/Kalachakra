@@ -88,6 +88,8 @@ DATABASES = {
     }
 }
 
+
+
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
@@ -163,3 +165,4 @@ STATICFILES_FINDERS = [
 
 LOGIN_REDIRECT_URL = '/'
 
+SESSION_COOKIE_HTTPONLY = False

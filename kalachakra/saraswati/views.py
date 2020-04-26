@@ -99,8 +99,8 @@ def day_json(request, year, month, day):
     yday = MoonDay.year_day(year,month,day)
     if request.method == 'POST':
         json_data = json.loads(request.body)
-        del json_data['sessionid']
-        del json_data['csrftoken']
+        # del json_data['sessionid']
+        # del json_data['csrftoken']
         k=next(iter(json_data))
         v=json_data[k]
         
@@ -251,7 +251,7 @@ def api_logout(request : HttpRequest):
 def api_user(request : HttpRequest):
     
     if request.user.is_anonymous: 
-        data = "{'nouser':null}"
+        data = "{'user':'nouser'}"
     else:
         data = serializers.serialize("json", [request.user], indent=2, ensure_ascii=False)
     return HttpResponse(data, content_type="application/json", status=200)

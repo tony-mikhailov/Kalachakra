@@ -251,7 +251,7 @@ def api_logout(request : HttpRequest):
 def api_user(request : HttpRequest):
     
     if request.user.is_anonymous: 
-        data = "{'user':'nouser'}"
+        data = "{\"user\":\"nouser\"}"
     else:
         data = serializers.serialize("json", [request.user], indent=2, ensure_ascii=False)
     return HttpResponse(data, content_type="application/json", status=200)

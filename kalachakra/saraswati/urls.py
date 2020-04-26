@@ -24,6 +24,8 @@ urlpatterns = [
     path('api/hurals', views.hurals_json, name='hurals_json'),
     path('api/rituals', views.rituals_json, name='rituals_json'),
     path('api/ritual/<int:id>', views.ritual_json, name='ritual_json'),
-    path('api/login', views.login),
+    path('api/login', views.api_login),
+    path('api/logout', views.api_logout),
+    path('api/user', views.api_user),
 
 ]

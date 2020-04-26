@@ -226,7 +226,7 @@ class ApiUser(object):
         return super().__str__()
 
 @csrf_exempt
-def login(request : HttpRequest):
+def api_login(request : HttpRequest):
 
     req_user = ApiUser(request.body)
     print (f'{req_user.login} {req_user.password}')
@@ -241,3 +241,17 @@ def login(request : HttpRequest):
         data = serializers.serialize("json", [user], indent=2, ensure_ascii=False)
         return HttpResponse(data, content_type="application/json", status=200)
         # auth.login(request, CustomUser.objects.get(username=req_user.username))
+
+
+def api_logout(request : HttpRequest):
+    auth.logout(request)
+    data = "Bye..."
+    return HttpResponse(data, content_type="text/plain", status=200)
+
+def api_user(request : HttpRequest):
+    
+    if request.user.is_anonymous: 
+        data = "{'nouser':null}"
+    else:
+        data = serializers.serialize("json", [request.user], indent=2, ensure_ascii=False)
+    return HttpResponse(data, content_type="application/json", status=200)

@@ -178,6 +178,11 @@ def common_month(request, year, month):
 
 # @csrf_exempt
 def month_json(request, year, month):
+    
+    if request.user.is_anonymous: 
+        return HttpResponse("[]", content_type='application/json; charset=utf-8')
+
+    
     ds = MoonDay.month_days(year, month)
     if request.method == 'POST':
         print ('process input month')
